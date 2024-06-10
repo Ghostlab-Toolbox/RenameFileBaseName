@@ -20,7 +20,9 @@ def GetFiles(dir):
 def RenameFilesCorrectly(files,basename):
     for currentFilePath in files:
         if not os.path.isdir(currentFilePath) and not currentFilePath.endswith('.meta'):
-            filename = os.path.basename(currentFilePath).split('.')[0]
+            splitname = os.path.basename(currentFilePath).split('.')
+            filename = splitname[0]
+            extension = splitname[1]
             checkFileBase = os.path.basename(filename).split('_')
             dir = os.path.dirname(currentFilePath)
             
@@ -35,7 +37,7 @@ def RenameFilesCorrectly(files,basename):
                 
             if filebasemissmatch:
                 file_base = filename.split('_')[0]
-                newfilename = filename.replace(file_base,basename)
+                newfilename = filename.replace(file_base,basename) + "." + extension
                 newfilePath = os.path.join(dir,newfilename)
                 if not os.path.isfile(newfilePath):
                      os.rename(currentFilePath,newfilePath)
@@ -46,7 +48,7 @@ def RenameFilesCorrectly(files,basename):
 if __name__ == "__main__":
     
     #swap out path within the quotes
-    baseFolder = r"C:\Users\uttka\unity_work\StudyCrafter_Ghost\MadSci\Assets\CharacterCreator\Character Body Parts\BodyType_01"
+    baseFolder = r"C:\Users\uttka\unity_work\StudyCrafter_Ghost\MadSci\Assets\CharacterCreator\Character Body Parts\FemaleTeen"
 
     
     files = GetFiles(baseFolder)
